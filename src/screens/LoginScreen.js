@@ -36,10 +36,16 @@ class LoginScreen extends Component {
                             placeholderTextColor = "#fff"
                             ref={(input) => this.password = input}
                             />
-                        <TouchableOpacity style={styles.button}
+                    <TouchableOpacity style={styles.button}
                             onPress={()=>this.props.navigation.navigate('Home')}>
                             <Text style={styles.buttonText}>Login</Text>
+                    </TouchableOpacity>
+                    <View style={{flexGrow:0.5, alignItems:'flex-end', justifyContent:'center'}}>
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Register')}>
+                            <Text style={{color: "#fff"}}>Don't have an account?</Text>
                         </TouchableOpacity>
+                    </View>
                 </View>
             </ImageBackground>   
         );
