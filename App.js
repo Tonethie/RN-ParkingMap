@@ -1,25 +1,47 @@
-import React, {Component} from 'react';
-import {
-  StyleSheet,
+import React, { Component } from "react";
+import { 
   View,
-  StatusBar
-} from 'react-native';
-import {Provider} from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react'
+  Text,
+  StyleSheet
+} from "react-native";
+import { createStackNavigator } from 'react-navigation'
+import LoginScreen from "./src/screens/LoginScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import DetailScreen from "./src/screens/DetailScreen";
 
-import persist from './src/config/store';
-import Main from './src/Main';
-
-const persistStore = persist();
-
-export default class App extends Component{
+export default class App extends Component {
   render() {
-    return(
-      <Provider store={persistStore.store}>
-        <PersistGate loading={null} persistor={persistStore.persistor}>
-          <Main />
-        </PersistGate>
-      </Provider>
+    return (
+      <AppStackNavigator />
     );
   }
 }
+
+const AppStackNavigator = createStackNavigator({
+  Login: {
+    screen:LoginScreen,
+    navigationOptions:{
+      header: null
+    }
+  },
+  Home: {
+    screen:HomeScreen,
+    navigationOptions:{
+      header: null,
+    }
+  },
+  Detail: {
+    screen:DetailScreen,
+    navigationOptions:{
+      header:null
+    }
+  },
+})
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
