@@ -8,6 +8,7 @@ import { createStackNavigator } from 'react-navigation'
 import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import DetailScreen from "./src/screens/DetailScreen";
+import RegisterScreen from "./src/screens/RegisterScreen"
 
 export default class App extends Component {
   render() {
@@ -32,6 +33,12 @@ const AppStackNavigator = createStackNavigator({
   },
   Detail: {
     screen:DetailScreen,
+    navigationOptions:{
+      header:null
+    }
+  },
+  Register: {
+    screen:RegisterScreen,
     navigationOptions:{
       header:null
     }
