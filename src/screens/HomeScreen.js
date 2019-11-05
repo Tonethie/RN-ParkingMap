@@ -12,9 +12,9 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Container, Header,Left, Body, Title, Button } from 'native-base'
+import { Container, Header,Left, Body, Title, Button, Item, Input } from 'native-base'
 import ImagePicker from 'react-native-image-picker'
-import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
+import CartaoCredito from './DetailScreen'
 
 export class HomeScreen extends Component {
     render() {
@@ -87,11 +87,6 @@ export class MapScreen extends Component {
 
 export class PayScreen extends Component {
 
-    state = { useLiteCreditCardInput: false };
-    _onChange = (formData) => console.log(JSON.stringify(formData, null, " "));
-    _onFocus = (field) => console.log("focusing", field);
-    _setUseLiteCreditCardInput = (useLiteCreditCardInput) => this.setState({ useLiteCreditCardInput });
-
 
     render() {
         return (
@@ -107,22 +102,27 @@ export class PayScreen extends Component {
                     <Title>Pagamentos</Title>
                 </Body>
             </Header>
-            <View style={styles.container}>
-                <CreditCardInput
-                    autoFocus
-                    requiresName
-                    requiresCVC
-                    requiresPostalCode
-
-                    labelStyle={styles.label}
-                    inputStyle={styles.input}
-                    validColor={"black"}
-                    invalidColor={"red"}
-                    placeholderColor={"darkgray"}
-
-                    onFocus={this._onFocus}
-                    onChange={this._onChange} />
+            <View style={{flex:1, backgroundColor:"white"}}>
+                <View style={styles.postContainer}>
+                        <Button light style={{alignItems:'center', justifyContent:'center'}}
+                        onPress={()=>this.setState({edit: !edit}),()=>this.props.navigation.navigate('AddCard')}>
+                                <Icon name="ios-add-circle-outline" size={40} color='green'/>
+                                <Text> Adicionar Cartão</Text>
+                        </Button>
                 </View>
+                <View style={styles.postContainer}>
+                        <Button light style={{alignItems:'center', justifyContent:'center'}}>
+                            <Icon name="ios-mail" size={40} color='black'/>
+                            <Text> Mensalidade</Text>
+                        </Button>
+                </View>
+                <View style={styles.postContainer}>
+                        <Button light style={{alignItems:'center', justifyContent:'center'}}>
+                            <Icon name="ios-mail" size={40} color='black'/>
+                            <Text> Avulso</Text>
+                        </Button>
+                </View>
+            </View>
             </Container>
         );
     }
@@ -183,7 +183,7 @@ export class ProfileScreen extends Component {
                 <View style={styles.bodyContent}>
                     <Text style={styles.name}>Luiz Carvalho</Text>
                     <Text style={styles.info}>Aluno Graduação / Eng. Computação </Text>
-                    <Text style={styles.description}>Descrição sobre qualquer coisa apenas para encher linguiça e ver o quanto a curiosidade te leva a ler tudo. Apenas para saber que comi o cu de quem ta lendo.</Text>
+                    <Text style={styles.description}>Descrição sobre qualquer coisa apenas para encher linguiça e ver o quanto a curiosidade te leva a ler tudo.</Text>
                 
                     <TouchableOpacity style={styles.buttonContainer}>
                         <Text>Botão 1</Text>  
@@ -243,6 +243,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    postContainer:{
+        margin: 30,
+        padding: 30,
+        borderRadius: 3
     },
     backgroundImage: {
         flex: 1,
