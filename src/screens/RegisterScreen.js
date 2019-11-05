@@ -31,6 +31,7 @@ export default class RegisterScreen extends Component {
         const {userEmail} = this.state;
         const {userPassword} = this.state;
         const {userCode} = this.state;
+        alert("Usuário Registrado!");
     }
 
 
@@ -76,7 +77,8 @@ export default class RegisterScreen extends Component {
                 />
 
                 <TouchableOpacity style={styles.button}
-                onPress={this.userRegister}>
+                onPress={this.userRegister}
+                onPress={()=>this.props.navigation.navigate('Login')}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
