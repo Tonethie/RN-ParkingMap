@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     StatusBar,
     StyleSheet,
-    TextInput
+    TextInput,
+    KeyboardAvoidingView,
 } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Container, Header,Left, Body, Title, Button } from 'native-base'
@@ -50,29 +51,37 @@ export default class RegisterScreen extends Component {
                 </Body>
             </Header>
             <View style={styles.container}>
+                <Title style={{color:'black',
+                                alignItems:'center',
+                                justifyContent:'center',
+                                flex:0.5}}>Cadastre-se para ter acesso ao Sistema</Title>
                 <TextInput
                 placeholder="Enter Name"
-                style={{width:200, margin:10}}
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
                 onChangeText={userName => this.setState({userName})}
+                //style={styles.inputbox}
                 
                 />
                 <TextInput
                 placeholder="Enter Student Code"
-                style={{width:200, margin:10}}
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
                 onChangeText={userCode => this.setState({userCode})}
+                //style={styles.inputbox}
 
                 />
                 <TextInput
                 placeholder="Enter E-mail"
-                style={{width:200, margin:10}}
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
                 onChangeText={userEmail => this.setState({userEmail})}
+                //style={styles.inputbox}
                 
                 />
                 <TextInput
                 placeholder="Enter Password"
                 secureTextEntry={true}
-                style={{width:200, margin:10}}
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
                 onChangeText={userPassword => this.setState({userPassword})}
+                //style={styles.inputbox}
                 
                 />
 
@@ -88,16 +97,16 @@ export default class RegisterScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0.8,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#FFF',
     },
     button: {
         width: 200,
         backgroundColor: '#c21e1e',
         borderRadius: 25,
-        marginVertical:10,
+        justifyContent:'flex-end',
         paddingHorizontal: 16,
     },
     buttonText: {
@@ -106,5 +115,13 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginVertical:5,
         textAlign: 'center'
-    }
+    },
+    inputbox: {
+        width: 200,
+        backgroundColor: '#F2F5FB',
+        borderRadius: 25,
+        borderColor:'black',
+        marginVertical:15,
+        paddingHorizontal: 16,
+    },
 })
