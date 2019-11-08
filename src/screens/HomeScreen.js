@@ -14,7 +14,7 @@ import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Container, Header,Left, Body, Title, Button, Item, Input } from 'native-base'
 import ImagePicker from 'react-native-image-picker'
-import CartaoCredito from './DetailScreen'
+import {CartaoCredito, Mensalidade, TicketAvulso} from './DetailScreen'
 
 export class HomeScreen extends Component {
     render() {
@@ -111,13 +111,15 @@ export class PayScreen extends Component {
                         </Button>
                 </View>
                 <View style={styles.postContainer}>
-                        <Button light style={{alignItems:'center', justifyContent:'center'}}>
+                        <Button light style={{alignItems:'center', justifyContent:'center'}}
+                        onPress={()=>this.setState({edit: !edit}),()=>this.props.navigation.navigate('Mensal')}>
                             <Icon name="ios-mail" size={40} color='black'/>
                             <Text> Mensalidade</Text>
                         </Button>
                 </View>
                 <View style={styles.postContainer}>
-                        <Button light style={{alignItems:'center', justifyContent:'center'}}>
+                        <Button light style={{alignItems:'center', justifyContent:'center'}}
+                        onPress={()=>this.setState({edit: !edit}),()=>this.props.navigation.navigate('Avulso')}>
                             <Icon name="ios-mail" size={40} color='black'/>
                             <Text> Avulso</Text>
                         </Button>
