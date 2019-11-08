@@ -4,6 +4,7 @@ import {
     BackHandler,
     View,
     Text,
+    TextInput,
     ScrollView,
     ImageBackground,
     StyleSheet,
@@ -14,6 +15,7 @@ import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Container, Header,Left, Body, Right, Title, Button, Subtitle, Content, Card, CardItem } from 'native-base'
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
+import CalendarPicker from 'react-native-calendar-picker';
 
 export class DetailScreen extends Component {
     render() {
@@ -262,11 +264,125 @@ export class CartaoCredito extends Component {
         );
     }
 }
+export class Mensalidade extends Component {
+    componentWillMount()
+    {
+        BackHandler.addEventListener('hardwareBackPress', ()=>this.props.navigation.navigate('Pay'));
+    }
+    constructor(props) {
+        super(props);
+        this.state = {
+          selectedStartDate: null,
+        };
+        this.onDateChange = this.onDateChange.bind(this);
+      }
+     
+      onDateChange(date) {
+        this.setState({
+          selectedStartDate: date,
+        });
+      }
+    render() {
+        const { selectedStartDate } = this.state;
+        const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+        return (
+            <Container>
+            <Header style={{backgroundColor:'#980e0e', borderColor:'black'} }>
+            <StatusBar backgroundColor='#841515' barStyle='light-content' />
+                <Left>
+                <Button transparent onPress={()=>this.props.navigation.navigate('Pay')}>
+                    <Icon name='md-arrow-back' size={24} color='#fff' />
+                </Button>
+                </Left>
+                <Body>
+                <Title style={{justifyContent:'center'}}>Mensalidade</Title>
+                </Body>
+            </Header>
+            <View style={styles.container}>
+                <Title style={{color:'black',
+                                alignItems:'center',
+                                justifyContent:'center',
+                                flex:0.5}}>Cadastre-se para ter acesso ao Sistema</Title>
+                <TextInput
+                placeholder="Placa do Carro"
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
+                onChangeText={userName => this.setState({userName})}
+                //style={styles.inputbox}
+                
+                />
+                <Text style={{marginVertical:20,height: 20, width: 200, borderColor: 'gray', borderWidth: 1}}> Data de Vencimento do Boleto</Text>
+                <CalendarPicker
+                    onDateChange={this.onDateChange}
+                />
+
+                <TouchableOpacity style={styles.button}
+                onPress={this.userRegister}
+                onPress={()=>this.props.navigation.navigate('Pay')}>
+                    <Text style={styles.buttonText}>Registrar</Text>
+                </TouchableOpacity>
+            </View>
+            </Container>
+        );
+    }
+}
+export class TicketAvulso extends Component {
+    componentWillMount()
+    {
+        BackHandler.addEventListener('hardwareBackPress', ()=>this.props.navigation.navigate('Pay'));
+    }
+    render() {
+        return (
+            <Container>
+            <Header style={{backgroundColor:'#980e0e', borderColor:'black'} }>
+            <StatusBar backgroundColor='#841515' barStyle='light-content' />
+                <Left>
+                <Button transparent onPress={()=>this.props.navigation.navigate('Pay')}>
+                    <Icon name='md-arrow-back' size={24} color='#fff' />
+                </Button>
+                </Left>
+                <Body>
+                <Title style={{justifyContent:'center'}}>Avulso</Title>
+                </Body>
+            </Header>
+            <View style={styles.container}>
+            <Title style={{color:'black',
+                                alignItems:'center',
+                                justifyContent:'center',
+                                flex:0.2}}>Pagamento de Tickets</Title>
+    
+                <TextInput
+                placeholder="Número do Ticket"
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
+                onChangeText={userName => this.setState({userName})}
+                //style={styles.inputbox}
+                />
+
+                <TextInput
+                placeholder="Enter Password"
+                secureTextEntry={true}
+                style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
+                onChangeText={userPassword => this.setState({userPassword})}
+                //style={styles.inputbox}
+                
+                />
+
+                <TouchableOpacity style={styles.button}
+                onPress={this.userRegister}
+                onPress={()=>this.props.navigation.navigate('Pay')}>
+                    <Text style={styles.buttonText}>Pagar</Text>
+                </TouchableOpacity>
+            </View>
+            </Container>
+        );
+    }
+}
 export default createBottomTabNavigator({
     Park1:Estacionamento1,
     Park2:Estacionamento2,
     Park3:Estacionamento3,
     AddCard:CartaoCredito,
+    Mensal:Mensalidade,
+    Avulso:TicketAvulso
 },{
     navigationOptions:{
         tabBarVisible: false,
