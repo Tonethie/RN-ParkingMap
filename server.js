@@ -27,7 +27,7 @@ con.connect(function(error){
     else console.log("connected");
 });
 
-app.get('/aluno', function(req, res){
+app.post('/alunos', function(req, res){
     con.query('select * from aluno', function(error, rows, fields){
         if(error) console.log(error)
         else{
@@ -36,3 +36,6 @@ app.get('/aluno', function(req, res){
         }
     });
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//   paypal
