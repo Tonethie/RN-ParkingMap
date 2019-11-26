@@ -20,8 +20,8 @@ export default class RegisterScreen extends Component {
         super(props)
         this.state={
             userName:'',
-            userEmail:'',
-            userPassword:'',
+            userCurso:'',
+            userCPF:'',
             userCode:'',
         }
     }
@@ -29,10 +29,29 @@ export default class RegisterScreen extends Component {
     userRegister = () =>{
         //alert('ok');
         const {userName} = this.state;
-        const {userEmail} = this.state;
-        const {userPassword} = this.state;
+        const {userCurso} = this.state;
+        const {userCPF} = this.state;
         const {userCode} = this.state;
-        alert("Usuário Registrado!");
+        fetch('http://192.168.0.9:4545/alunos', {
+            method: 'post',
+            header:{
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            body:JSON.stringify({
+                name:userName,
+                curso:userCurso,
+                cpf:userCPF,
+                code:userCode,
+            })
+        })
+        .then((response) => response.text())
+            .then((responseJson) =>{
+                alert(responseJson);
+            })
+            .catch((error)=>{
+                console.error(error);
+            })
     }
 
 
@@ -70,24 +89,23 @@ export default class RegisterScreen extends Component {
 
                 />
                 <TextInput
-                placeholder="Enter E-mail"
+                placeholder="Enter Curso"
                 style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
-                onChangeText={userEmail => this.setState({userEmail})}
+                onChangeText={userCurso => this.setState({userCurso})}
                 //style={styles.inputbox}
                 
                 />
                 <TextInput
-                placeholder="Enter Password"
+                placeholder="Enter CPF"
                 secureTextEntry={true}
                 style={{marginVertical:20,height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
-                onChangeText={userPassword => this.setState({userPassword})}
+                onChangeText={userCPF => this.setState({userCPF})}
                 //style={styles.inputbox}
                 
                 />
 
                 <TouchableOpacity style={styles.button}
-                onPress={this.userRegister}
-                onPress={()=>this.props.navigation.navigate('Login')}>
+                onPress={this.userRegister}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>

@@ -8,8 +8,10 @@ import {
     Image,
     TouchableOpacity,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    Modal,
 } from "react-native";
+import { WebView } from "react-native-webview"
 import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Container, Header,Left, Body, Title, Button, Item, Input } from 'native-base'
@@ -85,8 +87,21 @@ export class MapScreen extends Component {
     }
 }
 
-export class PayScreen extends Component {
 
+export class PayScreen extends Component {
+    state = {
+        showModal: false,
+        status: 'Pending'
+    };
+    handleResponse = data => {
+        if(data.title === 'success'){
+            this.setState({showModal: false, status: 'Complete'});
+        }else if(data.title === 'cancel'){
+            this.setState({showModal: false, status: 'Canceled'})
+        }else{
+            return;
+        }
+    }
 
     render() {
         return (
@@ -118,11 +133,20 @@ export class PayScreen extends Component {
                         </Button>
                 </View>
                 <View style={styles.postContainer}>
+                    <Modal
+                    visible={this.state.showModal}
+                    onRequestClose={() => this.setState({showModal: false})}>
+                        <WebView 
+                        source={{uri:"http://192.168.0.9:3000/paypal" }} 
+                        onNavigationStateChange={data => this.handleResponse(data)}
+                        />
+                    </Modal>
                         <Button light style={{alignItems:'center', justifyContent:'center'}}
-                        onPress={()=>this.setState({edit: !edit}),()=>this.props.navigation.navigate('Avulso')}>
+                        onPress={()=>this.setState({showModal: true})}>
                             <Icon name="ios-mail" size={40} color='black'/>
-                            <Text> Avulso</Text>
+                            <Text>  Paypal</Text>
                         </Button>
+                    <Text>Payment Status: {this.state.status}</Text>
                 </View>
             </View>
             </Container>

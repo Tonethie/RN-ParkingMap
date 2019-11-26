@@ -9,7 +9,8 @@ import {
     ImageBackground,
     StyleSheet,
     StatusBar,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableHighlight
 } from "react-native";
 import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -163,17 +164,19 @@ export class Estacionamento3 extends Component {
                 </Body>
             </Header>
             <ScrollView>
-                <ImageBackground styleName='large-banner' style={{flex:1, height:'100%', width:'100%'}} 
-                    source={require('../img/estacionamento3.png')}>
-                    <View style={{paddingVertical: 80, alignItems:'center'}}>
-                        <Text style={{
-                             fontWeight:'bold',
-                            fontSize:42,
-                            color: '#fff',
-                            borderColor:'black'
-                        }}> E3 </Text>
-                    </View>
-                </ImageBackground>
+                <TouchableHighlight onPress={()=>this.props.navigation.navigate('Park3_1')}>
+                    <ImageBackground styleName='large-banner' style={{flex:1, height:'100%', width:'100%'}} 
+                        source={require('../img/estacionamento3.png')}>
+                        <View style={{paddingVertical: 80, alignItems:'center'}}>
+                            <Text style={{
+                                fontWeight:'bold',
+                                fontSize:42,
+                                color: '#fff',
+                                borderColor:'black'
+                            }}> E3 </Text>
+                        </View>
+                    </ImageBackground>
+                </TouchableHighlight>
                 <Card>
                     <CardItem header>
                         <Text style={{fontSize:18, fontWeight:'bold'}}>Detalhes do Estacionamento 3</Text>
@@ -200,6 +203,39 @@ export class Estacionamento3 extends Component {
         );
     }
 }
+export class Estacionamento3_1 extends Component {
+    componentWillMount()
+    {
+        BackHandler.addEventListener('hardwareBackPress', ()=>this.props.navigation.navigate('Map'));
+    }
+    render() {
+        return (
+            <Container>
+            <Header style={{backgroundColor:'#980e0e', borderColor:'black'} }>
+            <StatusBar backgroundColor='#841515' barStyle='light-content' />
+                <Left>
+                <Button transparent onPress={()=>this.props.navigation.navigate('Map')}>
+                    <Icon name='md-arrow-back' size={24} color='#fff' />
+                </Button>
+                </Left>
+                <Body>
+                <Title style={{justifyContent:'center'}}>Mapa de Vagas E3</Title>
+                </Body>
+            </Header>
+            <ScrollView>
+                <ImageBackground styleName='large-banner' style={{flex:1, height:'100%', width:'100%'}} 
+                    source={require('../img/mapa_e3.png')}>
+                    <View style={{paddingVertical: 350, alignItems:'center'}}>
+                    </View>
+                </ImageBackground>
+            </ScrollView>
+            </Container>
+        );
+    }
+}
+
+
+
 export class CartaoCredito extends Component {
     state = { useLiteCreditCardInput: false,
                 AddedCard:false };
@@ -380,6 +416,7 @@ export default createBottomTabNavigator({
     Park1:Estacionamento1,
     Park2:Estacionamento2,
     Park3:Estacionamento3,
+    Park3_1:Estacionamento3_1,
     AddCard:CartaoCredito,
     Mensal:Mensalidade,
     Avulso:TicketAvulso
