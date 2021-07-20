@@ -21,7 +21,7 @@
     "native-base": "^2.13.8",
     "paypal-rest-sdk": "^1.8.1",
     "react": "16.9.0",
-    "react-native": "0.61.1",
+    "react-native": "0.62.3",
     "react-native-calendar-picker": "^6.0.2",
     "react-native-credit-card-input": "^0.4.1",
     "react-native-elements": "^1.2.3",
